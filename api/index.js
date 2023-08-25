@@ -11,7 +11,7 @@ app.use(bodyParser.json()); // Parse JSON data
 app.use(bodyParser.urlencoded({ extended: true })); // Parse URL-encoded data
 DatabaseConfig(); //DB Config
 
-app.use("/", userRoute); //Routers
+app.use("/api", userRoute); //Routers
 
 app.listen(dotenv.Port, () => {
   console.log(`Server is running on http://localhost:${dotenv.Port}`);
