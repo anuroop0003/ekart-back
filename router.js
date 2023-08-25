@@ -4,6 +4,7 @@ const express = require("express");
 const router = express.Router();
 
 // User Routes
+router.get("/", (req, res) => res.json("Server Started...........").status(200));
 router.get("/user/get", userController.getUser);
 router.post("/user/login", userController.loginUser);
 router.post("/user/sendmail", userController.sendPasswordMail);
