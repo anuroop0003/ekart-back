@@ -13,10 +13,6 @@ DatabaseConfig(); //DB Config
 
 app.use("/api", userRoute); //Routers
 
-app.get("/api", (req, res) => {
-  res.json({ message: "GET request received!" });
-});
-
 app.listen(dotenv.Port, () => {
   console.log(`Server is running on http://localhost:${dotenv.Port}`);
 });

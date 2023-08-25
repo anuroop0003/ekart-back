@@ -4,7 +4,6 @@ const express = require("express");
 const router = express.Router();
 
 // User Routes
-// router.get("/favicon.ico", (req, res) => res.status(204));
 router.get("/", (req, res) => res.json("Server Started...........").status(200));
 router.get("/user/get", userController.getUser);
 router.post("/user/login", userController.loginUser);
