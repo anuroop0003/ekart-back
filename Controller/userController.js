@@ -1,5 +1,8 @@
 const User = require("../Schemas/userSchema");
 const nodemailer = require("nodemailer");
+const jwt = require("jsonwebtoken");
+const JWTConfig = require("../configJWT");
+const configJWT = require("../configJWT");
 
 exports.getUser = async (req, res) => {
   try {
@@ -13,6 +16,7 @@ exports.getUser = async (req, res) => {
 exports.loginUser = async (req, res) => {
   try {
     let { email, password, photoURL, name } = req.body;
+    const token = jwt.sign({ email: email }, configJWT.jwtSecret, { expiresIn: configJWT.jwtExpiresIn });
     if (!photoURL) {
       photoURL = `https://ui-avatars.com/api/?name=${email.split("@")[0]}&background=000&color=F8C44C&rounded=true&bold=true`;
     }
@@ -21,7 +25,7 @@ exports.loginUser = async (req, res) => {
       const users = new User({ password: password, email: email, photoURL: photoURL, name: name });
       await users.save();
     }
-    res.status(200).json({ message: "User fetched successfully", photoURL: photoURL, status: 200 });
+    res.status(200).json({ message: "User fetched successfully", photoURL: photoURL, status: 200, token: token });
   } catch (error) {
     res.status(500).json({ message: error.message, status: 500 });
   }
