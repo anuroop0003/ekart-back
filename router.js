@@ -13,7 +13,7 @@ router.post("/user/sendmail", userController.sendPasswordMail);
 // User Routes
 
 // Product Routes
-router.get("/list/products", middleware.verifyToken, productController.listProducts);
+router.post("/list/products", middleware.verifyToken, productController.listProducts);
 router.post("/list/categories", middleware.verifyToken, productController.listCategories);
 router.post("/list/all/categories", middleware.verifyToken, productController.listMainCategories);
 
