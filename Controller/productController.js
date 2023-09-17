@@ -1,11 +1,22 @@
 const Products = require("../Schemas/productSchema");
 
+// exports.listProducts = async (req, res) => {
+//   const { skip_limit } = req.body;
+//   try {
+//     const productsList = await Products.find().skip(skip_limit).limit(1000);
+//     res.status(200).json({ message: "Products fetched successfully", data: productsList, status: 200 });
+//   } catch (error) {
+//     res.status(500).json({ message: error.message, status: 500 });
+//   }
+// };
+
 exports.listProducts = async (req, res) => {
-  const { skip_limit } = req.body;
+  const { type } = req.body;
   try {
-    const productsList = await Products.find().skip(skip_limit).limit(1000);
+    const productsList = await Products.find({ category_3: type })
     res.status(200).json({ message: "Products fetched successfully", data: productsList, status: 200 });
   } catch (error) {
+    console.log(error);
     res.status(500).json({ message: error.message, status: 500 });
   }
 };
@@ -14,7 +25,7 @@ exports.listCategories = async (req, res) => {
   const { category } = req.body;
   try {
     const productsCategories = await Products.distinct(`${category}`);
-    res.status(200).json({ message: "Products categories fetched successfully", data: productsCategories, status: 200 });
+    res.status(200).json({ message: "Products categories fetched successfully", data: { data: productsCategories, type: category }, status: 200 });
   } catch (error) {
     res.status(500).json({ message: error.message, status: 500 });
   }
