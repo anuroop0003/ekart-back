@@ -11,12 +11,11 @@ const Products = require("../Schemas/productSchema");
 // };
 
 exports.listProducts = async (req, res) => {
-  const { type } = req.body;
+  const { type, category } = req.body;
   try {
-    const productsList = await Products.find({ category_3: type })
+    const productsList = await Products.find({ [category]: type })
     res.status(200).json({ message: "Products fetched successfully", data: productsList, status: 200 });
   } catch (error) {
-    console.log(error);
     res.status(500).json({ message: error.message, status: 500 });
   }
 };
