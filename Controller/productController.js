@@ -1,24 +1,35 @@
 const Products = require("../Schemas/productSchema");
 
+exports.listProducts = async (req, res) => {
+  const { skip_limit, type, category, max_limit } = req.body;
+  try {
+    const productsLength = await Products.countDocuments({ [category]: type });
+    const productsList = await Products.find({ [category]: type }).skip(skip_limit).limit(max_limit);
+    res.status(200).json({ message: "Products fetched successfully", data: { productsList: productsList, productsLength: productsLength }, status: 200 });
+  } catch (error) {
+    res.status(500).json({ message: error.message, status: 500 });
+  }
+};
+
+exports.selectedProducts = async (req, res) => {
+  const { id } = req.body;
+  const productRequested = await Products.findById(id);
+  try {
+    res.status(200).json({ message: "Products fetched successfully", data: productRequested, status: 200 });
+  } catch (error) {
+    res.status(500).json({ message: error.message, status: 500 });
+  }
+}
+
 // exports.listProducts = async (req, res) => {
-//   const { skip_limit } = req.body;
+//   const { type, category } = req.body;
 //   try {
-//     const productsList = await Products.find().skip(skip_limit).limit(1000);
+//     const productsList = await Products.find({ [category]: type })
 //     res.status(200).json({ message: "Products fetched successfully", data: productsList, status: 200 });
 //   } catch (error) {
 //     res.status(500).json({ message: error.message, status: 500 });
 //   }
 // };
-
-exports.listProducts = async (req, res) => {
-  const { type, category } = req.body;
-  try {
-    const productsList = await Products.find({ [category]: type })
-    res.status(200).json({ message: "Products fetched successfully", data: productsList, status: 200 });
-  } catch (error) {
-    res.status(500).json({ message: error.message, status: 500 });
-  }
-};
 
 exports.listCategories = async (req, res) => {
   const { category } = req.body;
