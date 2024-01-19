@@ -27,10 +27,3 @@ exports.verifyToken = (req, res, next) => {
     res.status(400).json({ message: "Invalid token" });
   }
 };
-
-// Protected route
-// app.get("/protected", verifyToken, (req, res) => {
-//   res.json({ message: "You have access to this protected route!" });
-// });
-
-// Rest of your code (login route, server setup, etc.)
