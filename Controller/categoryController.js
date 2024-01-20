@@ -37,13 +37,14 @@ const categoryController = {
   },
   listCategory: async (req, res) => {
     try {
-      const listCategory = Category.find({});
+      const listCategory = await Category.find();
       res.status(200).json({
         message: 'Category listed successfully',
         status: 200,
         data: listCategory,
       });
     } catch (error) {
+      console.log(error);
       res.status(500).json({ message: error.message, status: 500 });
     }
   },
