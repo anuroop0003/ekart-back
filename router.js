@@ -1,38 +1,43 @@
-const productController = require('./Controller/productController')
-const express = require('express')
-const router = express.Router()
-const middleware = require('./Middleware/verifyToken')
-const userController = require('./Controller/userController')
+const productController = require('./Controller/productController');
+const express = require('express');
+const router = express.Router();
+const middleware = require('./Middleware/verifyToken');
+const userController = require('./Controller/userController');
+const categoryController = require('./Controller/categoryController');
 
-router.get('/', (req, res) => res.json('Server Started...........').status(200))
+router.get('/', (req, res) =>
+  res.json('Server Started...........').status(200)
+);
 
 // User Routes
-router.post('/user/sign/in', userController.signInUser)
-router.post('/user/sign/up', userController.signUpUser)
+router.post('/user/sign/in', userController.signInUser);
+router.post('/user/sign/up', userController.signUpUser);
 // User Routes
+
+// Category Routes
+router.post(
+  '/add/category',
+  middleware.verifyToken,
+  categoryController.addCategory
+);
+router.get(
+  '/list/category',
+  middleware.verifyToken,
+  categoryController.listCategory
+);
+// Category Routes
 
 // Product Routes
 router.post(
-    '/product/selected',
-    middleware.verifyToken,
-    productController.selectedProducts
-)
-router.post(
-    '/list/products',
-    middleware.verifyToken,
-    productController.listProducts
-)
-router.post(
-    '/list/categories',
-    middleware.verifyToken,
-    productController.listCategories
-)
-router.post(
-    '/list/all/categories',
-    middleware.verifyToken,
-    productController.listMainCategories
-)
-
+  '/add/product',
+  middleware.verifyToken,
+  productController.addProduct
+);
+router.get(
+  '/list/product',
+  middleware.verifyToken,
+  productController.listProduct
+);
 // Product Routes
 
-module.exports = router
+module.exports = router;

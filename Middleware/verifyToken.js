@@ -1,28 +1,34 @@
-const express = require('express')
-const jwt = require('jsonwebtoken')
-const config = require('../configJWT')
+const jwt = require('jsonwebtoken');
+const configJWT = require('../utils/configJWT');
 
 // Middleware to check token validity
 exports.verifyToken = (req, res, next) => {
-    console.log('token verified')
-    const token = req.header('Authorization')
+  const accessToken = req.header('x-access-token');
+  const refreshToken = req.header('x-refresh-token');
 
-    if (!token) {
-        return res.status(401).json({ message: 'Access denied' })
+  if (!accessToken || !refreshToken) {
+    return res.status(401).send('Access Denied. No token provided.');
+  }
+  try {
+    const decoded = jwt.verify(accessToken, configJWT.jwtSecret);
+    req.user = decoded;
+    next();
+  } catch (error) {
+    if (!refreshToken) {
+      return res.status(401).send('Access Denied. No refresh token provided.');
     }
-
     try {
-        // Verify the token
-        const decoded = jwt.verify(token, config.jwtSecret)
-
-        // Check if the token is expired
-        if (decoded.exp < Date.now() / 1000) {
-            return res.status(401).json({ message: 'Token has expired' })
-        }
-
-        req.user = decoded
-        next()
-    } catch (ex) {
-        res.status(400).json({ message: 'Invalid token' })
+      const decoded = jwt.verify(refreshToken, configJWT.jwtSecret);
+      const newAccessToken = jwt.sign(
+        { user: decoded.user },
+        configJWT.jwtSecret,
+        { expiresIn: configJWT.jwtExpiresIn }
+      );
+      res.setHeader('x-new-access-token', newAccessToken);
+      next();
+      // return res.status(200).json({ message: 'Token refreshed' })
+    } catch (error) {
+      return res.status(400).json({ message: 'Invalid Token.' });
     }
-}
+  }
+};

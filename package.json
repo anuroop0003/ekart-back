@@ -1,32 +1,33 @@
 {
-    "name": "ekart",
-    "version": "1.0.0",
-    "description": "",
-    "main": "api/index.js",
-    "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1",
-        "start": "node ./api/index.js",
-        "dev": "supervisor ./api/index.js",
-        "vercel-build": "echo Building",
-        "format": "prettier --write ."
-    },
-    "keywords": [],
-    "author": "",
-    "license": "ISC",
-    "dependencies": {
-        "bcrypt": "^5.1.1",
-        "body-parser": "^1.20.2",
-        "cors": "^2.8.5",
-        "dotenv": "^16.3.1",
-        "express": "^4.18.2",
-        "install": "^0.13.0",
-        "jsonwebtoken": "^9.0.1",
-        "mongoose": "^7.4.3",
-        "nodemailer": "^6.9.4",
-        "nodemon": "^2.0.7",
-        "npm": "^9.8.1"
-    },
-    "devDependencies": {
-        "prettier": "3.2.4"
-    }
+  "name": "ekart",
+  "version": "1.0.0",
+  "description": "",
+  "main": "api/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node ./api/index.js",
+    "dev": "supervisor ./api/index.js",
+    "vercel-build": "echo Building",
+    "format": "prettier --write ."
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^5.1.1",
+    "body-parser": "^1.20.2",
+    "cors": "^2.8.5",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "install": "^0.13.0",
+    "joi": "^17.12.0",
+    "jsonwebtoken": "^9.0.1",
+    "mongoose": "^7.4.3",
+    "nodemailer": "^6.9.4",
+    "nodemon": "^2.0.7",
+    "npm": "^9.8.1"
+  },
+  "devDependencies": {
+    "prettier": "3.2.4"
+  }
 }

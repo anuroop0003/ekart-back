@@ -1,33 +1,33 @@
-const nodemailer = require('nodemailer')
+const nodemailer = require('nodemailer');
 
 module.exports.sendMailService = async (email, name) => {
-    const transporter = nodemailer.createTransport({
-        service: 'gmail',
-        secure: false,
-        auth: {
-            user: 'iamciitester@gmail.com',
-            pass: 'lwprgkappfiwaykb',
-        },
-    })
-    const mailOptions = {
-        from: 'iamciitester@gmail.com',
-        to: email,
-        subject: `Hello ${name},`,
-        html: `<body style="color: rgb(0, 0, 0); font-family: monospace; margin: 5%">
+  const transporter = nodemailer.createTransport({
+    service: 'gmail',
+    secure: false,
+    auth: {
+      user: 'iamciitester@gmail.com',
+      pass: 'lwprgkappfiwaykb',
+    },
+  });
+  const mailOptions = {
+    from: 'iamciitester@gmail.com',
+    to: email,
+    subject: `Hello ${name},`,
+    html: `<body style="color: rgb(0, 0, 0); font-family: monospace; margin: 5%">
         <p style="font-size: 20px; margin: 20px">Thank you for registering on our App.</p>
         <p style="font-size: 20px; margin: 20px">We hope you enjoy your experience!.</p>
         <p style="font-size: 20px; margin: 20px">Best regards,<br />E Commerce Team</p>
       </body>`,
-    }
-    transporter
-        .sendMail(mailOptions)
-        .then((res) => {
-            console.log('Mail send successfully')
-        })
-        .catch((error) => {
-            console.log('Mail send unsuccessfully')
-        })
-}
+  };
+  transporter
+    .sendMail(mailOptions)
+    .then((res) => {
+      console.log('Mail send successfully');
+    })
+    .catch((error) => {
+      console.log('Mail send unsuccessfully');
+    });
+};
 
 // exports.sendMailService = async (req, res) => {
 //     try {

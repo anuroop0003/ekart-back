@@ -1,78 +1,105 @@
-const Products = require('../Schemas/productSchema')
+const Products = require('../Schemas/productSchema');
+const joi = require('joi');
 
-exports.listProducts = async (req, res) => {
-    const { skip_limit, type, category, max_limit } = req.body
+const productSchema = joi.object({
+  name: joi.string().required(),
+  brand: joi.string().required(),
+  boxItems: joi.string().required(),
+  category: joi.string().required(),
+  colors: joi.array().required(),
+  currentPrice: joi.number().required(),
+  description_1: joi.string().required(),
+  description_2: joi.string().required(),
+  highestPrice: joi.number().required(),
+  categoryId: joi.string().required(),
+  features: joi.string().required(),
+  image: joi.string().required(),
+  reviews: joi.array().required(),
+  specifications: joi.array().required(),
+  rating: joi.array().required(),
+  variants: joi.array().required(),
+  lowestPrice: joi.number().required(),
+});
+
+const productController = {
+  addProduct: async (req, res) => {
+    const {
+      name,
+      brand,
+      boxItems,
+      category,
+      colors,
+      currentPrice,
+      description_1,
+      description_2,
+      highestPrice,
+      features,
+      image,
+      reviews,
+      specifications,
+      rating,
+      categoryId,
+      variants,
+      lowestPrice,
+    } = req.body;
     try {
-        const productsLength = await Products.countDocuments({
-            [category]: type,
-        })
-        const productsList = await Products.find({ [category]: type })
-            .skip(skip_limit)
-            .limit(max_limit)
+      const validationResult = productSchema.validate(req.body);
+      if (validationResult.error) {
+        return res.status(400).json({
+          message: 'Invalid request. Please provide valid data.',
+          status: 400,
+        });
+      }
+      const existingProduct = await Products.findOne({
+        name: name,
+      });
+      if (!existingProduct) {
+        const product = new Products({
+          name: name,
+          brand: brand,
+          colors: colors,
+          category: category,
+          description_1: description_1,
+          features: features,
+          rating: rating,
+          image: image,
+          reviews: reviews,
+          categoryId: categoryId,
+          variants: variants,
+          specifications: specifications,
+          lowestPrice: lowestPrice,
+          highestPrice: highestPrice,
+          description_2: description_2,
+          currentPrice: currentPrice,
+          boxItems: boxItems,
+        });
+        await product.save();
         res.status(200).json({
-            message: 'Products fetched successfully',
-            data: {
-                productsList: productsList,
-                productsLength: productsLength,
-            },
-            status: 200,
-        })
+          message: 'Product added successfully',
+          status: 200,
+        });
+      } else {
+        res.status(404).json({
+          message: 'Product already exist',
+          status: 404,
+        });
+      }
     } catch (error) {
-        res.status(500).json({ message: error.message, status: 500 })
+      res.status(500).json({ message: error.message, status: 500 });
     }
-}
-
-exports.selectedProducts = async (req, res) => {
-    const { id } = req.body
-    const productRequested = await Products.findById(id)
+  },
+  listProduct: async (req, res) => {
     try {
-        res.status(200).json({
-            message: 'Products fetched successfully',
-            data: productRequested,
-            status: 200,
-        })
+      const productsList = await Products.find();
+      res.status(200).json({
+        message: 'Product listed successfully',
+        data: productsList,
+        status: 200,
+      });
     } catch (error) {
-        res.status(500).json({ message: error.message, status: 500 })
+      res.status(500).json({ message: error.message, status: 500 });
     }
-}
+  },
+};
 
-// exports.listProducts = async (req, res) => {
-//   const { type, category } = req.body;
-//   try {
-//     const productsList = await Products.find({ [category]: type })
-//     res.status(200).json({ message: "Products fetched successfully", data: productsList, status: 200 });
-//   } catch (error) {
-//     res.status(500).json({ message: error.message, status: 500 });
-//   }
-// };
-
-exports.listCategories = async (req, res) => {
-    const { category } = req.body
-    try {
-        const productsCategories = await Products.distinct(`${category}`)
-        res.status(200).json({
-            message: 'Products categories fetched successfully',
-            data: { data: productsCategories, type: category },
-            status: 200,
-        })
-    } catch (error) {
-        res.status(500).json({ message: error.message, status: 500 })
-    }
-}
-
-exports.listMainCategories = async (req, res) => {
-    try {
-        const selectedFields = 'category_1 category_2' // Space-separated list of fields to select
-        const selectedProducts = await Products.find(
-            { category_1: { $in: 'category_1' } }, // Adjust the field name if needed
-            selectedFields
-        ).exec()
-        res.status(200).json({
-            message: 'Products categories fetched successfully',
-            data: selectedProducts,
-            status: 200,
-        })
-    } catch (error) {
-        res.status(500).json({ message: error.message, status: 500 })
-    }
-}
+module.exports = productController;
