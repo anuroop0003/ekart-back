@@ -12,6 +12,7 @@ const productSchema = joi.object({
   description_2: joi.string().required(),
   highestPrice: joi.number().required(),
   categoryId: joi.string().required(),
+  subCategoryId: joi.string().required(),
   features: joi.string().required(),
   image: joi.string().required(),
   reviews: joi.array().required(),
@@ -35,6 +36,8 @@ const productService = {
         }
         const existingProduct = await Products.findOne({
           name: reqBody.name,
+          categoryId: reqBody.categoryId,
+          subCategoryId: reqBody.subCategoryId,
         });
         if (!existingProduct) {
           const product = new Products({
@@ -48,6 +51,7 @@ const productService = {
             image: reqBody.image,
             reviews: reqBody.reviews,
             categoryId: reqBody.categoryId,
+            subCategoryId: reqBody.subCategoryId,
             variants: reqBody.variants,
             specifications: reqBody.specifications,
             lowestPrice: reqBody.lowestPrice,
@@ -75,10 +79,17 @@ const productService = {
       }
     });
   },
-  listProduct: async () => {
+  listProduct: async (categoryId, subCategoryId) => {
     return new Promise(async (resolve, reject) => {
       try {
-        const productsList = await Products.find();
+        const query = {};
+        if (categoryId) {
+          query.categoryId = categoryId;
+        }
+        if (subCategoryId) {
+          query.subCategoryId = subCategoryId;
+        }
+        const productsList = await Products.find(query);
         const result = {
           message: 'Product listed successfully',
           data: productsList,

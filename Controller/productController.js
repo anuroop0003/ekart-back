@@ -1,26 +1,4 @@
-const Products = require('../Schemas/productSchema');
-const joi = require('joi');
 const productService = require('../Service/productService');
-
-const productSchema = joi.object({
-  name: joi.string().required(),
-  brand: joi.string().required(),
-  boxItems: joi.string().required(),
-  category: joi.string().required(),
-  colors: joi.array().required(),
-  currentPrice: joi.number().required(),
-  description_1: joi.string().required(),
-  description_2: joi.string().required(),
-  highestPrice: joi.number().required(),
-  categoryId: joi.string().required(),
-  features: joi.string().required(),
-  image: joi.string().required(),
-  reviews: joi.array().required(),
-  specifications: joi.array().required(),
-  rating: joi.array().required(),
-  variants: joi.array().required(),
-  lowestPrice: joi.number().required(),
-});
 
 const productController = {
   addProduct: async (req, res) => {
@@ -41,6 +19,7 @@ const productController = {
         specifications,
         rating,
         categoryId,
+        subCategoryId,
         variants,
         lowestPrice,
       } = req.body;
@@ -60,6 +39,7 @@ const productController = {
         specifications,
         rating,
         categoryId,
+        subCategoryId,
         variants,
         lowestPrice,
       });
@@ -69,8 +49,12 @@ const productController = {
     }
   },
   listProduct: async (req, res) => {
+    const { categoryId, subCategoryId } = req.body;
     try {
-      const result = await productService.listProduct();
+      const result = await productService.listProduct(
+        categoryId,
+        subCategoryId
+      );
       res.status(result.status).json(result);
     } catch (error) {
       res.status(500).json({ message: error.message, status: 500 });

@@ -4,6 +4,7 @@ const router = express.Router();
 const middleware = require('./Middleware/verifyToken');
 const userController = require('./Controller/userController');
 const categoryController = require('./Controller/categoryController');
+const subCategoryController = require('./Controller/subCategoryController');
 
 router.get('/', (req, res) =>
   res.json('Server Started...........').status(200)
@@ -26,6 +27,19 @@ router.get(
   categoryController.listCategory
 );
 // Category Routes
+
+// Sub Category Routes
+router.post(
+  '/add/category/sub',
+  middleware.verifyToken,
+  subCategoryController.addCategory
+);
+router.get(
+  '/list/category/sub',
+  middleware.verifyToken,
+  subCategoryController.listCategory
+);
+// Sub Category Routes
 
 // Product Routes
 router.post(

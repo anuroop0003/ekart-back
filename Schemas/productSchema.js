@@ -13,6 +13,10 @@ const productSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  subCategoryId: {
+    type: String,
+    required: true,
+  },
   description_1: {
     type: String,
     required: true,

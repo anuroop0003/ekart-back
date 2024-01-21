@@ -1,16 +1,23 @@
-const Category = require('../Schemas/categorySchema');
 const joi = require('joi');
+const SubCategory = require('../Schemas/subCategorySchema');
 
-const categorySchema = joi.object({
+const subCategorySchema = joi.object({
   name: joi.string().required(),
   description: joi.string().required(),
+  categoryId: joi.string().required(),
+  category: joi.string().required(),
 });
 
-const categoryService = {
-  addCategory: async (name, description) => {
+const subCategoryService = {
+  addCategory: async (name, description, categoryId, category) => {
     return new Promise(async (resolve, reject) => {
       try {
-        const validationResult = categorySchema.validate({ name, description });
+        const validationResult = subCategorySchema.validate({
+          name,
+          description,
+          categoryId,
+          category,
+        });
         if (validationResult.error) {
           const result = {
             message: 'Invalid request. Please provide valid data.',
@@ -18,21 +25,27 @@ const categoryService = {
           };
           resolve(result);
         }
-        const existCategory = Category.findOne({ name: name });
+        const existCategory = await SubCategory.findOne({
+          name: name,
+          categoryId: categoryId,
+          category: category,
+        });
         if (!existCategory) {
-          const category = new Category({
+          const newCategory = new SubCategory({
             name: name,
             description: description,
+            categoryId: categoryId,
+            category: category,
           });
-          await category.save();
+          await newCategory.save();
           const result = {
-            message: 'Category added successfully',
+            message: 'Sub Category added successfully',
             status: 200,
           };
           resolve(result);
         } else {
           const result = {
-            message: 'Category already exist',
+            message: 'Sub Category already exist',
             status: 404,
           };
           resolve(result);
@@ -46,9 +59,9 @@ const categoryService = {
   listCategory: async () => {
     return new Promise(async (resolve, reject) => {
       try {
-        const listCategory = await Category.find();
+        const listCategory = await SubCategory.find();
         const result = {
-          message: 'Category listed successfully',
+          message: 'Sub Category listed successfully',
           status: 200,
           data: listCategory,
         };
@@ -60,4 +73,4 @@ const categoryService = {
   },
 };
 
-module.exports = categoryService;
+module.exports = subCategoryService;
