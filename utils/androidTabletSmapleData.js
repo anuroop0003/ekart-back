@@ -1,7 +1,6 @@
 const fs = require('fs');
-const productSchema = require('../Schemas/productSchema');
 
-const productSampleData = (name, lowPrice, price, highPrice, brand, os) => {
+const productSampleData = (name, lowPrice, price, highPrice, brand) => {
   const data = {
     categoryId: '65ac11a43a47f7e86e68a5d4',
     subCategoryId: '65ad3f85e52dec4f99e0ca43',
@@ -141,12 +140,9 @@ async function productSampleDataMaker() {
       item.lowPrice,
       item.price,
       item.highPrice,
-      item.brand,
-      'IOS'
+      item.brand
     )
   );
-  // await productSchema.insertMany(data);
-  console.log('Upload Complete');
   fs.writeFile('./file.txt', JSON.stringify(data), (err) => {
     if (err) {
       throw err;

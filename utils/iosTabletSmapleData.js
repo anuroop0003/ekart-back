@@ -1,7 +1,6 @@
 const fs = require('fs');
-const productSchema = require('../Schemas/productSchema');
 
-const productSampleData = (name, lowPrice, price, highPrice, brand, os) => {
+const productSampleData = (name, lowPrice, price, highPrice, brand) => {
   const data = {
     categoryId: '65ac11a43a47f7e86e68a5d4',
     subCategoryId: '65ad3f85e52dec4f99e0ca43',
@@ -48,88 +47,88 @@ const productSampleData = (name, lowPrice, price, highPrice, brand, os) => {
 
 const phones = [
   {
-    model: 'Galaxy Tab S9+',
+    model: 'iPad Pro 12.9-inch (2021)',
     lowPrice: 99999,
     highPrice: 145000,
     price: 115897,
-    brand: 'Samsung',
+    brand: 'Apple',
   },
   {
-    model: 'Galaxy Tab S6',
+    model: 'iPad Pro 11-inch (2021)',
     lowPrice: 69000,
     highPrice: 85000,
     price: 95000,
-    brand: 'Samsung',
+    brand: 'Apple',
   },
   {
-    model: 'Tab P11 Pro',
+    model: 'iPad Air (2020)',
     lowPrice: 54000,
     highPrice: 70000,
     price: 63000,
-    brand: 'Lenovo',
+    brand: 'Apple',
   },
   {
-    model: 'MatePad Pro',
+    model: 'iPad (9th generation)',
     lowPrice: 78000,
     highPrice: 99999,
     price: 83000,
-    brand: 'Huawei',
+    brand: 'Apple',
   },
   {
-    model: 'Fire HD 10',
+    model: 'iPad mini (6th generation)',
     lowPrice: 55000,
     highPrice: 78000,
     price: 65000,
-    brand: 'Amazon',
+    brand: 'Apple',
   },
   {
-    model: 'Galaxy Tab A7',
+    model: 'iPad Pro 12.9-inch (2020)',
     lowPrice: 47000,
     highPrice: 55045,
     price: 62397,
-    brand: 'Samsung',
+    brand: 'Apple',
   },
   {
-    model: 'Tab M10 Plus',
+    model: 'iPad Pro 11-inch (2020)',
     lowPrice: 54378,
     highPrice: 61999,
     price: 70000,
-    brand: 'Lenovo',
+    brand: 'Apple',
   },
   {
-    model: 'Galaxy Tab S5e',
+    model: 'iPad Air (4th generation)',
     lowPrice: 45045,
     highPrice: 52315,
     price: 67319,
-    brand: 'Samsung',
+    brand: 'Apple',
   },
   {
-    model: 'ZenPad 3S 10',
+    model: 'iPad (8th generation)',
     lowPrice: 30672,
     highPrice: 37666,
     price: 41444,
-    brand: 'Asus',
+    brand: 'Apple',
   },
   {
-    model: 'Pixel Slate',
+    model: 'iPad mini (5th generation)',
     lowPrice: 48000,
     highPrice: 65000,
     price: 55000,
-    brand: 'Google',
+    brand: 'Apple',
   },
   {
-    model: 'Mi Pad 6',
+    model: 'iPad Pro 12.9-inch (2018)',
     lowPrice: 38000,
     highPrice: 55000,
     price: 45000,
-    brand: 'Redmi',
+    brand: 'Apple',
   },
   {
-    model: 'Pad 6',
+    model: 'iPad Pro 10.5-inch (2017)',
     lowPrice: 28000,
     highPrice: 45000,
     price: 35000,
-    brand: 'Xiaomi',
+    brand: 'Apple',
   },
 ];
 
@@ -141,12 +140,9 @@ async function productSampleDataMaker() {
       item.lowPrice,
       item.price,
       item.highPrice,
-      item.brand,
-      'IOS'
+      item.brand
     )
   );
-  // await productSchema.insertMany(data);
-  console.log('Upload Complete');
   fs.writeFile('./file.txt', JSON.stringify(data), (err) => {
     if (err) {
       throw err;
