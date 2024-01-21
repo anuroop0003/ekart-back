@@ -1,5 +1,6 @@
 const Products = require('../Schemas/productSchema');
 const joi = require('joi');
+const productService = require('../Service/productService');
 
 const productSchema = joi.object({
   name: joi.string().required(),
@@ -23,79 +24,54 @@ const productSchema = joi.object({
 
 const productController = {
   addProduct: async (req, res) => {
-    const {
-      name,
-      brand,
-      boxItems,
-      category,
-      colors,
-      currentPrice,
-      description_1,
-      description_2,
-      highestPrice,
-      features,
-      image,
-      reviews,
-      specifications,
-      rating,
-      categoryId,
-      variants,
-      lowestPrice,
-    } = req.body;
     try {
-      const validationResult = productSchema.validate(req.body);
-      if (validationResult.error) {
-        return res.status(400).json({
-          message: 'Invalid request. Please provide valid data.',
-          status: 400,
-        });
-      }
-      const existingProduct = await Products.findOne({
-        name: name,
+      const {
+        name,
+        brand,
+        boxItems,
+        category,
+        colors,
+        currentPrice,
+        description_1,
+        description_2,
+        highestPrice,
+        features,
+        image,
+        reviews,
+        specifications,
+        rating,
+        categoryId,
+        variants,
+        lowestPrice,
+      } = req.body;
+      const result = await productService.addProduct({
+        name,
+        brand,
+        boxItems,
+        category,
+        colors,
+        currentPrice,
+        description_1,
+        description_2,
+        highestPrice,
+        features,
+        image,
+        reviews,
+        specifications,
+        rating,
+        categoryId,
+        variants,
+        lowestPrice,
       });
-      if (!existingProduct) {
-        const product = new Products({
-          name: name,
-          brand: brand,
-          colors: colors,
-          category: category,
-          description_1: description_1,
-          features: features,
-          rating: rating,
-          image: image,
-          reviews: reviews,
-          categoryId: categoryId,
-          variants: variants,
-          specifications: specifications,
-          lowestPrice: lowestPrice,
-          highestPrice: highestPrice,
-          description_2: description_2,
-          currentPrice: currentPrice,
-          boxItems: boxItems,
-        });
-        await product.save();
-        res.status(200).json({
-          message: 'Product added successfully',
-          status: 200,
-        });
-      } else {
-        res.status(404).json({
-          message: 'Product already exist',
-          status: 404,
-        });
-      }
+      res.status(result.status).json(result);
     } catch (error) {
       res.status(500).json({ message: error.message, status: 500 });
     }
   },
   listProduct: async (req, res) => {
     try {
-      const productsList = await Products.find();
-      res.status(200).json({
-        message: 'Product listed successfully',
-        data: productsList,
-        status: 200,
-      });
+      const result = await productService.listProduct();
+      res.status(result.status).json(result);
     } catch (error) {
       res.status(500).json({ message: error.message, status: 500 });
     }

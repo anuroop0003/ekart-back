@@ -1,6 +1,6 @@
 // config.js
 module.exports = {
   jwtSecret: 'QWERTYUIOP',
-  jwtExpiresIn: 1,
+  jwtExpiresIn: 900,
   refExpiresIn: '1d',
 };
