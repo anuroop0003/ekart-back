@@ -2,10 +2,9 @@
 const express = require('express');
 const router = express.Router();
 // const middleware = require('./Middleware/verifyToken');
-const userController = require('./Controller/userController').default;
 // const categoryController = require('./Controller/categoryController');
 // const subCategoryController = require('./Controller/subCategoryController');
-
+const userController = require('./Controller/userController');
 router.get('/', (req, res) =>
   res.json('Server Started...........').status(200)
 );
