@@ -13,8 +13,8 @@ DatabaseConfig();
 
 app.use('/.netlify/functions/api', userRoute);
 
-app.listen(dotenv.Port, () => {
-  console.log(`Server is running on http://localhost:${dotenv.Port}`);
+app.listen(process.env.Port, () => {
+  console.log(`Server is running on http://localhost:${process.env.Port}`);
 });
 
 module.exports.handler = serverless(app);
