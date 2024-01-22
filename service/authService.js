@@ -57,7 +57,7 @@ module.exports.signInUser = async (email, password) => {
     }
   });
 };
-(module.exports.signUpUser = async (email, password, name) => {
+module.exports.signUpUser = async (email, password, name) => {
   return new Promise(async (resolve, reject) => {
     try {
       const existingUser = await User.findOne({ email: email });
@@ -87,5 +87,4 @@ module.exports.signInUser = async (email, password) => {
       reject(error);
     }
   });
-}),
-  (module.exports = authService);
+};
