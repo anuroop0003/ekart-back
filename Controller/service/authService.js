@@ -2,7 +2,7 @@ const User = require('../Schemas/userSchema');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const configJWT = require('../utils/configJWT');
-const { sendMailService } = require('../Service/emailService');
+const { sendMailService } = require('./emailService');
 
 module.exports.signInUser = async (email, password) => {
   return new Promise(async (resolve, reject) => {

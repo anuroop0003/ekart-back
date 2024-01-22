@@ -1,4 +1,4 @@
-import { signInUser, signUpUser } from '../Service/authService';
+import { signInUser, signUpUser } from '../service/authService';
 const _signInUser = async (req, res) => {
   try {
     let { email, password } = req.body;
