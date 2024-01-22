@@ -1,4 +1,4 @@
-const { signInUser, signUpUser } = require('../Service/authService.js');
+const { signInUser, signUpUser } = require('../Service/authService');
 module.exports.signInUser = async (req, res) => {
   try {
     let { email, password } = req.body;
