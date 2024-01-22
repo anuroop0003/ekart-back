@@ -16,42 +16,42 @@ router.post('/user/sign/up', userController.signUpUser);
 // User Routes
 
 // Category Routes
-router.post(
-  '/add/category',
-  middleware.verifyToken,
-  categoryController.addCategory
-);
 router.get(
   '/list/category',
   middleware.verifyToken,
   categoryController.listCategory
 );
+router.post(
+  '/add/category',
+  middleware.verifyToken,
+  categoryController.addCategory
+);
 // Category Routes
 
 // Sub Category Routes
-router.post(
-  '/add/category/sub',
-  middleware.verifyToken,
-  subCategoryController.addCategory
-);
 router.get(
   '/list/category/sub',
   middleware.verifyToken,
   subCategoryController.listCategory
 );
+router.post(
+  '/add/category/sub',
+  middleware.verifyToken,
+  subCategoryController.addCategory
+);
 // Sub Category Routes
 
 // Product Routes
-// router.post(
-//   '/add/product',
-//   middleware.verifyToken,
-//   productController.addProduct
-// );
-// router.get(
-//   '/list/product',
-//   middleware.verifyToken,
-//   productController.listProduct
-// );
+router.post(
+  '/add/product',
+  middleware.verifyToken,
+  productController.addProduct
+);
+router.get(
+  '/list/product',
+  middleware.verifyToken,
+  productController.listProduct
+);
 // Product Routes
 
 module.exports = router;
