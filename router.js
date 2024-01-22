@@ -1,4 +1,4 @@
-const productController = require('./Controller/productController');
+// const productController = require('./Controller/productController');
 const express = require('express');
 const router = express.Router();
 const middleware = require('./Middleware/verifyToken');
@@ -42,16 +42,16 @@ router.get(
 // Sub Category Routes
 
 // Product Routes
-router.post(
-  '/add/product',
-  middleware.verifyToken,
-  productController.addProduct
-);
-router.get(
-  '/list/product',
-  middleware.verifyToken,
-  productController.listProduct
-);
+// router.post(
+//   '/add/product',
+//   middleware.verifyToken,
+//   productController.addProduct
+// );
+// router.get(
+//   '/list/product',
+//   middleware.verifyToken,
+//   productController.listProduct
+// );
 // Product Routes
 
 module.exports = router;
