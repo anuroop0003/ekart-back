@@ -2,7 +2,7 @@ const User = require('../Schemas/userSchema');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const configJWT = require('../utils/configJWT');
-const { sendMailService } = require('./emailService');
+const { sendMailService } = require('../service/emailService');
 
 const userController = {
   signInUser: async (req, res) => {
