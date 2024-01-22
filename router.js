@@ -2,7 +2,7 @@
 const express = require('express');
 const router = express.Router();
 // const middleware = require('./Middleware/verifyToken');
-const userController = require('./Controller/userController');
+const userController = require('./Controller/userController').default;
 // const categoryController = require('./Controller/categoryController');
 // const subCategoryController = require('./Controller/subCategoryController');
 
