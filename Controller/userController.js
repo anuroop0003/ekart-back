@@ -7,6 +7,7 @@ const userController = {
       const result = await authService.signInUser(email, password);
       res.status(result.status).json(result);
     } catch (error) {
+      console.log('error', error);
       res.status(500).json({ message: error.message, status: 500 });
     }
   },
