@@ -16,28 +16,28 @@ router.post('/user/sign/up', userController.signUpUser);
 // User Routes
 
 // Category Routes
-router.get(
-  '/list/category',
-  middleware.verifyToken,
-  categoryController.listCategory
-);
 router.post(
   '/add/category',
   middleware.verifyToken,
   categoryController.addCategory
 );
+router.get(
+  '/list/category',
+  middleware.verifyToken,
+  categoryController.listCategory
+);
 // Category Routes
 
 // Sub Category Routes
-router.get(
-  '/list/category/sub',
-  middleware.verifyToken,
-  subCategoryController.listCategory
-);
 router.post(
   '/add/category/sub',
   middleware.verifyToken,
   subCategoryController.addCategory
+);
+router.get(
+  '/list/category/sub',
+  middleware.verifyToken,
+  subCategoryController.listCategory
 );
 // Sub Category Routes
 

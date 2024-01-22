@@ -7,7 +7,6 @@ const userRoute = require('../router');
 const dotenv = require('dotenv').config().parsed;
 
 app.use(cors());
-app.options('*', cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 DatabaseConfig();
