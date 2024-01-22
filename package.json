@@ -23,8 +23,7 @@
     "mongoose": "^7.4.3",
     "nodemailer": "^6.9.4",
     "nodemon": "^2.0.7",
-    "npm": "^9.8.1",
-    "vercel": "^33.2.0"
+    "npm": "^9.8.1"
   },
   "devDependencies": {
     "prettier": "3.2.4"
