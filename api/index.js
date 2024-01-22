@@ -11,11 +11,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 DatabaseConfig();
 
-// app.use('/api', userRoute);
-
-app.get('/', (req, res) =>
-  res.json('Server Started...........', req, res).status(200)
-);
+app.use('/api', userRoute);
 
 app.listen(dotenv.Port, () => {
   console.log(`Server is running on http://localhost:${dotenv.Port}`);
