@@ -83,7 +83,7 @@ module.exports.signUpUser = async (email, password, name) => {
         resolve(result);
       }
     } catch (error) {
-      // return { message: error.message, status: 500 };
+      // return{ message: error.message, status: 500 };
       reject(error);
     }
   });
