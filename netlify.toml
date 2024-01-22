@@ -1,6 +1,7 @@
 [build]
 command = "npm run start"  # Specify the build command if needed
-functions = "functions/api.js"    # Specify the folder containing serverless functions
+functions = "C:\\personnel\\ekart-back\\functions"    # Specify the folder containing serverless functions
 
 [dev]
 targetPort = 3333
+functions = "C:\\personnel\\ekart-back\\functions"

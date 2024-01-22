@@ -11,7 +11,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 DatabaseConfig();
 
-app.use('/api', userRoute);
+app.use('/.netlify/functions/api', userRoute);
 
 app.listen(dotenv.Port, () => {
   console.log(`Server is running on http://localhost:${dotenv.Port}`);
