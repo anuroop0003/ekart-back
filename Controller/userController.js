@@ -1,5 +1,5 @@
-const { signInUser, signUpUser } = require('../Service/authService');
-module.exports.signInUser = async (req, res) => {
+import { signInUser, signUpUser } from '../Service/authService';
+const _signInUser = async (req, res) => {
   try {
     let { email, password } = req.body;
     const result = await signInUser(email, password);
@@ -9,7 +9,8 @@ module.exports.signInUser = async (req, res) => {
     res.status(500).json({ message: error.message, status: 500 });
   }
 };
-module.exports.signUpUser = async (req, res) => {
+export { _signInUser as signInUser };
+const _signUpUser = async (req, res) => {
   try {
     let { email, password, name } = req.body;
     const result = await signUpUser(email, password, name);
@@ -18,3 +19,4 @@ module.exports.signUpUser = async (req, res) => {
     res.status(500).json({ message: error.message, status: 500 });
   }
 };
+export { _signUpUser as signUpUser };
