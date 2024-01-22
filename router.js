@@ -2,7 +2,7 @@
 const express = require('express');
 const router = express.Router();
 // const middleware = require('./Middleware/verifyToken');
-// const userController = require('./Controller/userController');
+const userController = require('./Controller/userController');
 // const categoryController = require('./Controller/categoryController');
 // const subCategoryController = require('./Controller/subCategoryController');
 
@@ -11,8 +11,8 @@ router.get('/', (req, res) =>
 );
 
 // User Routes
-// router.post('/user/sign/in', userController.signInUser);
-// router.post('/user/sign/up', userController.signUpUser);
+router.post('/user/sign/in', userController.signInUser);
+router.post('/user/sign/up', userController.signUpUser);
 // User Routes
 
 // Category Routes
