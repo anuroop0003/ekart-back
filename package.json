@@ -6,6 +6,7 @@
   "scripts": {
     "start": "node ./functions/api.js",
     "dev": "supervisor ./functions/api.js",
+    "devli": "nodemon ./functions/api.js",
     "format": "prettier --write ."
   },
   "keywords": [],
@@ -21,6 +22,7 @@
     "joi": "^17.12.0",
     "jsonwebtoken": "^9.0.1",
     "mongoose": "^7.4.3",
+    "netlify-cli": "^17.15.2",
     "nodemailer": "^6.9.4",
     "nodemon": "^2.0.7",
     "npm": "^9.8.1",
