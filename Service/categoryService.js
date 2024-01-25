@@ -58,6 +58,39 @@ const categoryService = {
       }
     });
   },
+  deleteCategory: async (id) => {
+    return new Promise(async (resolve, reject) => {
+      try {
+        const deleteCategory = await Category.deleteOne({ _id: id });
+        const result = {
+          message: 'Category delete successfully',
+          status: 200,
+          data: deleteCategory,
+        };
+        resolve(result);
+      } catch (error) {
+        reject(error);
+      }
+    });
+  },
+  updateCategory: async (id, name, description) => {
+    return new Promise(async (resolve, reject) => {
+      try {
+        const updateCategory = await Category.findByIdAndUpdate(id, {
+          name: name,
+          description: description,
+        });
+        const result = {
+          message: 'Category update successfully',
+          status: 200,
+          data: updateCategory,
+        };
+        resolve(result);
+      } catch (error) {
+        reject(error);
+      }
+    });
+  },
 };
 
 module.exports = categoryService;

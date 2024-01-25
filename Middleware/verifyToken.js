@@ -7,7 +7,7 @@ exports.verifyToken = (req, res, next) => {
   const refreshToken = req.header('x-refresh-token');
 
   if (!accessToken || !refreshToken) {
-    return res.status(401).send('Access Denied. No token provided.');
+    return res.status(403).send('Access Denied. No token provided.');
   }
   try {
     const decoded = jwt.verify(accessToken, configJWT.jwtSecret);
@@ -15,7 +15,7 @@ exports.verifyToken = (req, res, next) => {
     next();
   } catch (error) {
     if (!refreshToken) {
-      return res.status(401).send('Access Denied. No refresh token provided.');
+      return res.status(403).send('Access Denied. No refresh token provided.');
     }
     try {
       const decoded = jwt.verify(refreshToken, configJWT.jwtSecret);
@@ -28,7 +28,7 @@ exports.verifyToken = (req, res, next) => {
       next();
       // return res.status(200).json({ message: 'Token refreshed' })
     } catch (error) {
-      return res.status(400).json({ message: 'Invalid Token.' });
+      return res.status(403).json({ message: 'Invalid Token.' });
     }
   }
 };
