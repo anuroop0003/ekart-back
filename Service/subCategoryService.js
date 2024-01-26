@@ -71,6 +71,42 @@ const subCategoryService = {
       }
     });
   },
+  deleteCategory: async (id) => {
+    return new Promise(async (resolve, reject) => {
+      try {
+        const deleteCategory = await SubCategory.deleteOne({ _id: id });
+        const result = {
+          message: 'Sub Category delete successfully',
+          status: 200,
+          data: deleteCategory,
+        };
+        resolve(result);
+      } catch (error) {
+        reject(error);
+      }
+    });
+  },
+  updateCategory: async (id, categoryId, name, description, category) => {
+    return new Promise(async (resolve, reject) => {
+      try {
+        const updateCategory = await SubCategory.findByIdAndUpdate(id, {
+          name: name,
+          description: description,
+          category: category,
+          categoryId: categoryId,
+          updatedAt: new Date(),
+        });
+        const result = {
+          message: 'Category update successfully',
+          status: 200,
+          data: updateCategory,
+        };
+        resolve(result);
+      } catch (error) {
+        reject(error);
+      }
+    });
+  },
 };
 
 module.exports = subCategoryService;

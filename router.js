@@ -48,6 +48,16 @@ router.get(
   middleware.verifyToken,
   subCategoryController.listCategory
 );
+router.post(
+  '/delete/category/sub',
+  middleware.verifyToken,
+  subCategoryController.deleteCategory
+);
+router.post(
+  '/edit/category/sub',
+  middleware.verifyToken,
+  subCategoryController.updateCategory
+);
 // Sub Category Routes
 
 // Product Routes

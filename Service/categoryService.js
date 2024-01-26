@@ -79,6 +79,7 @@ const categoryService = {
         const updateCategory = await Category.findByIdAndUpdate(id, {
           name: name,
           description: description,
+          updatedAt: new Date(),
         });
         const result = {
           message: 'Category update successfully',
