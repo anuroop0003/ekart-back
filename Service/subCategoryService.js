@@ -90,10 +90,10 @@ const subCategoryService = {
     return new Promise(async (resolve, reject) => {
       try {
         const updateCategory = await SubCategory.findByIdAndUpdate(id, {
-          name: name,
-          description: description,
-          category: category,
-          categoryId: categoryId,
+          name,
+          description,
+          category,
+          categoryId,
           updatedAt: new Date(),
         });
         const result = {

@@ -3,23 +3,17 @@ const joi = require('joi');
 
 const productSchema = joi.object({
   name: joi.string().required(),
+  description: joi.string().required(),
+  type: joi.string().required(),
   brand: joi.string().required(),
-  boxItems: joi.string().required(),
-  category: joi.string().required(),
-  colors: joi.array().required(),
-  currentPrice: joi.number().required(),
-  description_1: joi.string().required(),
-  description_2: joi.string().required(),
-  highestPrice: joi.number().required(),
+  model: joi.string().required(),
+  price: joi.number().required(),
+  mrp: joi.number().required(),
   categoryId: joi.string().required(),
-  subCategoryId: joi.string().required(),
-  features: joi.string().required(),
-  image: joi.string().required(),
-  reviews: joi.array().required(),
-  specifications: joi.array().required(),
-  rating: joi.array().required(),
-  variants: joi.array().required(),
-  lowestPrice: joi.number().required(),
+  id: joi.string().required(),
+  specifications: joi.object().required(),
+  inventory: joi.object().required(),
+  ratings: joi.array().required(),
 });
 
 const productService = {
@@ -35,30 +29,26 @@ const productService = {
           resolve(result);
         }
         const existingProduct = await Products.findOne({
-          name: reqBody.name,
+          subCategoryId: reqBody.id,
           categoryId: reqBody.categoryId,
-          subCategoryId: reqBody.subCategoryId,
+          brand: reqBody.brand,
+          model: reqBody.model,
+          name: reqBody.name,
         });
         if (!existingProduct) {
           const product = new Products({
             name: reqBody.name,
+            description: reqBody.description,
+            type: reqBody.type,
             brand: reqBody.brand,
-            colors: reqBody.colors,
-            category: reqBody.category,
-            description_1: reqBody.description_1,
-            features: reqBody.features,
-            rating: reqBody.rating,
-            image: reqBody.image,
-            reviews: reqBody.reviews,
+            model: reqBody.model,
+            price: reqBody.price,
+            mrp: reqBody.mrp,
             categoryId: reqBody.categoryId,
-            subCategoryId: reqBody.subCategoryId,
-            variants: reqBody.variants,
+            subCategoryId: reqBody.id,
             specifications: reqBody.specifications,
-            lowestPrice: reqBody.lowestPrice,
-            highestPrice: reqBody.highestPrice,
-            description_2: reqBody.description_2,
-            currentPrice: reqBody.currentPrice,
-            boxItems: reqBody.boxItems,
+            inventory: reqBody.inventory,
+            ratings: reqBody.ratings,
           });
           await product.save();
           const result = {
@@ -98,6 +88,62 @@ const productService = {
         resolve(result);
       } catch (error) {
         // res.status(500).json({ message: error.message, status: 500 });
+        reject(error);
+      }
+    });
+  },
+  updateProduct: async (
+    name,
+    description,
+    type,
+    brand,
+    model,
+    price,
+    mrp,
+    categoryId,
+    id,
+    specifications,
+    inventory,
+    ratings
+  ) => {
+    return new Promise(async (resolve, reject) => {
+      try {
+        const updateProduct = await Products.findByIdAndUpdate(id, {
+          name,
+          description,
+          type,
+          brand,
+          model,
+          price,
+          mrp,
+          categoryId,
+          specifications,
+          inventory,
+          ratings,
+          updatedAt: new Date(),
+        });
+        const result = {
+          message: 'Product update successfully',
+          status: 200,
+          data: updateProduct,
+        };
+        resolve(result);
+      } catch (error) {
+        reject(error);
+      }
+    });
+  },
+  deleteProduct: async (id) => {
+    return new Promise(async (resolve, reject) => {
+      try {
+        const deleteProduct = await Products.deleteOne({ _id: id });
+        const result = {
+          message: 'Product delete successfully',
+          status: 200,
+          data: deleteProduct,
+        };
+        resolve(result);
+      } catch (error) {
         reject(error);
       }
     });

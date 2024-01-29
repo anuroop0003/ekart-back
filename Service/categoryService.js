@@ -77,8 +77,8 @@ const categoryService = {
     return new Promise(async (resolve, reject) => {
       try {
         const updateCategory = await Category.findByIdAndUpdate(id, {
-          name: name,
-          description: description,
+          name,
+          description,
           updatedAt: new Date(),
         });
         const result = {

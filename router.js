@@ -61,15 +61,25 @@ router.post(
 // Sub Category Routes
 
 // Product Routes
+router.get(
+  '/list/product',
+  middleware.verifyToken,
+  productController.listProduct
+);
 router.post(
   '/add/product',
   middleware.verifyToken,
   productController.addProduct
 );
-router.get(
-  '/list/product',
+router.post(
+  '/delete/product',
   middleware.verifyToken,
-  productController.listProduct
+  productController.deleteProduct
+);
+router.post(
+  '/edit/product',
+  middleware.verifyToken,
+  productController.updateProduct
 );
 // Product Routes
 

@@ -5,43 +5,31 @@ const productController = {
     try {
       const {
         name,
+        description,
+        type,
         brand,
-        boxItems,
-        category,
-        colors,
-        currentPrice,
-        description_1,
-        description_2,
-        highestPrice,
-        features,
-        image,
-        reviews,
-        specifications,
-        rating,
+        model,
+        price,
+        mrp,
         categoryId,
-        subCategoryId,
-        variants,
-        lowestPrice,
+        id,
+        specifications,
+        inventory,
+        ratings,
       } = req.body;
       const result = await productService.addProduct({
         name,
+        description,
+        type,
         brand,
-        boxItems,
-        category,
-        colors,
-        currentPrice,
-        description_1,
-        description_2,
-        highestPrice,
-        features,
-        image,
-        reviews,
-        specifications,
-        rating,
+        model,
+        price,
         categoryId,
-        subCategoryId,
-        variants,
-        lowestPrice,
+        id,
+        mrp,
+        specifications,
+        inventory,
+        ratings,
       });
       res.status(result.status).json(result);
     } catch (error) {
@@ -54,6 +42,59 @@ const productController = {
       const result = await productService.listProduct(
         categoryId,
         subCategoryId
+      );
+      res.status(result.status).json(result);
+    } catch (error) {
+      res.status(500).json({ message: error.message, status: 500 });
+    }
+  },
+  updateProduct: async (req, res) => {
+    try {
+      const { id, name, description } = req.body;
+      const result = await productService.updateProduct(id, name, description);
+      res.status(result.status).json(result);
+    } catch (error) {
+      res.status(500).json({ message: error.message, status: 500 });
+    }
+  },
+  deleteProduct: async (req, res) => {
+    try {
+      const { id } = req.body;
+      const result = await productService.deleteProduct(id);
+      res.status(result.status).json(result);
+    } catch (error) {
+      res.status(500).json({ message: error.message, status: 500 });
+    }
+  },
+  updateProduct: async (req, res) => {
+    try {
+      const {
+        id,
+        name,
+        description,
+        type,
+        brand,
+        model,
+        price,
+        mrp,
+        categoryId,
+        specifications,
+        inventory,
+        ratings,
+      } = req.body;
+      const result = await productService.updateProduct(
+        name,
+        description,
+        type,
+        brand,
+        model,
+        price,
+        mrp,
+        categoryId,
+        id,
+        specifications,
+        inventory,
+        ratings
       );
       res.status(result.status).json(result);
     } catch (error) {

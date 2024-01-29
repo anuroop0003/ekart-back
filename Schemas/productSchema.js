@@ -6,10 +6,6 @@ const productSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    brand: {
-      type: String,
-      required: true,
-    },
     categoryId: {
       type: String,
       required: true,
@@ -18,65 +14,40 @@ const productSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    description_1: {
+    description: {
       type: String,
       required: true,
     },
-    description_2: {
+    type: {
       type: String,
       required: true,
     },
-    highestPrice: {
+    brand: {
+      type: String,
+      required: true,
+    },
+    model: {
+      type: String,
+      required: true,
+    },
+    price: {
       type: Number,
       required: true,
     },
-    currentPrice: {
+    mrp: {
       type: Number,
-      required: true,
-    },
-    lowestPrice: {
-      type: Number,
-      required: true,
-    },
-    category: {
-      type: String,
-      required: true,
-    },
-    // category: {
-    //     type: mongoose.Schema.Types.ObjectId,
-    //     required: true,
-    //     ref: 'Category',
-    // },
-    features: {
-      type: String,
-      required: true,
-    },
-    image: {
-      type: String,
-      required: false,
-    },
-    rating: {
-      type: Array,
-      required: true,
-    },
-    reviews: {
-      type: Array,
-      required: false,
-    },
-    colors: {
-      type: Array,
-      required: true,
-    },
-    variants: {
-      type: Array,
       required: true,
     },
     specifications: {
-      type: Array,
+      type: Object,
       required: true,
     },
-    boxItems: {
-      type: String,
+    inventory: {
+      type: Object,
+      required: true,
+    },
+    ratings: {
+      type: Array,
       required: true,
     },
   },
